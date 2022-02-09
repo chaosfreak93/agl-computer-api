@@ -17,8 +17,7 @@ export default {
     getProductByID: async ({productId}) => {
       try {
         const foundProduct = await Product.findOne({ _id: productId }).exec();
-        if (foundProduct == null || foundProduct == undefined) throw new Error('No product exists with id: ' + productId);
-        return foundProduct;
+      if (foundProduct == null || foundProduct == undefined) return new Error('No product exists with id: ' + productId);
       } catch (err) {
         throw new Error('No product exists with id: ' + productId);
       }
@@ -26,15 +25,14 @@ export default {
     getProductByName: async ({productName}) => {
       try {
         const foundProduct = await Product.findOne({ name: productName }).exec();
-        if (foundProduct == null || foundProduct == undefined) throw new Error('No product exists with name: ' + productName);
-        return foundProduct;
+      if (foundProduct == null || foundProduct == undefined) return new Error('No product exists with name: ' + productName);
       } catch (err) {
         throw new Error('No product exists with name: ' + productName);
       }
     },
     createProduct: async ({input}) => {
       const foundProduct = await Product.findOne({ name: input.name }).exec();
-      if (foundProduct != null || foundProduct != undefined) throw new Error('Product with name already exists: ' + input.name);
+      if (foundProduct != null || foundProduct != undefined) return new Error('Product with name already exists: ' + input.name);
       const product = await Product.create(input);
       return product;
     }
