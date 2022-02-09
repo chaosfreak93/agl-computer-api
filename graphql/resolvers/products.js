@@ -15,20 +15,14 @@ export default {
       }
     },
     getProductByID: async ({productId}) => {
-      try {
-        const foundProduct = await Product.findOne({ _id: productId }).exec();
+      const foundProduct = await Product.findOne({ _id: productId }).exec();
       if (foundProduct == null || foundProduct == undefined) return new Error('No product exists with id: ' + productId);
-      } catch (err) {
-        throw new Error('No product exists with id: ' + productId);
-      }
+      return foundProduct;
     },
     getProductByName: async ({productName}) => {
-      try {
-        const foundProduct = await Product.findOne({ name: productName }).exec();
+      const foundProduct = await Product.findOne({ name: productName }).exec();
       if (foundProduct == null || foundProduct == undefined) return new Error('No product exists with name: ' + productName);
-      } catch (err) {
-        throw new Error('No product exists with name: ' + productName);
-      }
+      return foundProduct;
     },
     createProduct: async ({input}) => {
       const foundProduct = await Product.findOne({ name: input.name }).exec();
